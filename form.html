@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="main.scss" />
+    <title>Book Volt'Swap bytteservice - Volt</title>
+  </head>
+  <body>
+    <form>
+      <div class="main_grid">
+        <div class="menu"></div>
+        <div class="form_grid">
+          <div class="betalingsflow_billede1">
+            <div class="linje"></div>
+            <div class="flowikon_kurv"></div>
+            <div class="flowikon_oplysninger"></div>
+            <div class="flowikon_betaling"></div>
+          </div>
+
+          <!-------------------------------------------- KURV -------------------------------------------->
+          <div class="container_flow1">
+            <div class="kurv">
+              <div class="grey_box"></div>
+              <div class="ikon_vogn"></div>
+              <h1>Kurv</h1>
+              <h2>Services</h2>
+              <div class="hr"></div>
+              <input
+                type="number"
+                name="persons"
+                id="number_persons"
+                value="1"
+                min="1"
+                max="20"
+                required
+              />
+              <label class="label_persons" for="number_persons"
+                >Person(er)</label
+              >
+              <div class="ekstratekst_knap"><p>?</p></div>
+
+              <div class="advarsel1">
+                <p>
+                  Man kan max. købe 20 x VoltSwap-bytteservice. Har du brug for
+                  at købe flere, så kontakt kundeservice.
+                </p>
+              </div>
+              <div class="bytteservice_billede"></div>
+              <p class="total_services">
+                <span id="amount_service">1</span> x VoltSwap-bytteservice
+              </p>
+              <p class="price_services">179 DKK</p>
+              <div class="oplader_billede"></div>
+              <p class="total_chargers">
+                <span id="amount_chargers">1</span> x Volt-oplader (depositum)
+              </p>
+              <p class="price_chargers">200 DKK</p>
+              <div class="single_person">
+                <p class="tekst1">Har du allerede en Volt-oplader?</p>
+                <input type="checkbox" name="charger_single" id="own_charger" />
+                <label class="label_own_charger">
+                  Jeg medbringer egen Volt-oplader
+                </label>
+              </div>
+              <div class="multiple_persons">
+                <p class="tekst2">
+                  Har en eller flere af jer allerede en Volt-oplader?
+                </p>
+                <input
+                  type="number"
+                  name="charger_number"
+                  id="set_chargers"
+                  value="0"
+                  min="0"
+                />
+                <label class="label_set_chargers" for="set_chargers">
+                  Medbringer selv en Volt-oplader
+                </label>
+                <div class="advarsel2">
+                  <p>
+                    Antal medbragte opladere kan ikke være højere end antal
+                    personer!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-------------------------------------------- KURV SLUT-------------------------------------------->
+
+            <!-------------------------------------------- LEVERING -------------------------------------------->
+            <div class="levering">
+              <div class="grey_box"></div>
+              <h1>Levering</h1>
+              <div class="ikon_levering"></div>
+              <input
+                type="radio"
+                name="delivery"
+                id="delivery_afhentning"
+                checked
+              />
+              <label
+                class="delivery_button1 chosen_delivery"
+                for="delivery_afhentning"
+              >
+                <span class="afhentning_tekst"
+                  >Afhentning på festivalen eller hos Volt</span
+                >
+                <p class="afhentning_pris">Gratis</p>
+              </label>
+              <input type="radio" name="delivery" id="delivery_posthus" />
+              <label class="delivery_button2" for="delivery_posthus">
+                <span class="posthus_tekst">Levering til posthus</span>
+                <p class="posthus_pris">50 DKK</p>
+              </label>
+            </div>
+            <!-------------------------------------------- LEVERING SLUT -------------------------------------------->
+
+            <!-------------------------------------------- ORDREOVERSIGT -------------------------------------------->
+            <div class="ordreoversigt">
+              <div class="grey_box"></div>
+              <h1>Ordreoversigt</h1>
+              <div class="ikon_oversigt"></div>
+              <div class="order_services"></div>
+              <p>Early bird pris</p>
+              <p class="earlybird_price">179 DKK</p>
+              <div class="order_services_price"></div>
+              <div class="order_chargers"></div>
+              <div class="order_chargers_price"></div>
+              <div class="order_delivery"></div>
+              <div class="order_delivery_price"></div>
+              <div class="hr"></div>
+              <div class="ialt">I alt</div>
+              <div class="ialt_pris"></div>
+            </div>
+          </div>
+          <button class="fortsaet">FORTSÆT</button>
+          <!-------------------------------------------- ORDREOVERSIGT SLUT-------------------------------------------->
+          <div class="betalingsflow_billede2"></div>
+          <div class="container_flow2">
+            <div class="oplysninger">
+              <div class="grey_box"><h1>Oplysninger</h1></div>
+              <label>
+                Fornavn
+                <input
+                  type="text"
+                  name="firstname"
+                  pattern="[A-Za-z]+"
+                  placeholder="Mikkel"
+                  required
+                />
+              </label>
+              <br />
+              <label>
+                Efternavn
+                <input
+                  type="text"
+                  name="lastname"
+                  pattern="[A-Za-z]+"
+                  placeholder="Jensen"
+                  required
+                />
+              </label>
+              <br />
+              <div class="delivery">
+                <label>
+                  Vejnavn + nummer
+                  <input
+                    type="text"
+                    name="address"
+                    class="autofill"
+                    pattern="[A-Za-z0-9]+"
+                    placeholder="Vej 1"
+                    value="null"
+                    required
+                  />
+                </label>
+                <br />
+                <label>
+                  Postnummer
+                  <input
+                    type="number"
+                    name="zip"
+                    class="autofill_number"
+                    placeholder="1234"
+                    value="1234"
+                    required
+                    min="100"
+                    max="9999"
+                  />
+                </label>
+                <br />
+                <label>
+                  By
+                  <input
+                    type="text"
+                    name="city"
+                    class="autofill"
+                    pattern="[A-Za-z]+"
+                    placeholder="Vejstrup"
+                    value="null"
+                    required
+                  />
+                </label>
+                <br />
+              </div>
+              <label>
+                E-mail
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="mikkel_jensen@mail.dk"
+                  required
+                />
+              </label>
+              <!-------------------------------------------- OPLYSNINGER SLUT -------------------------------------------->
+            </div>
+            <!-- HER SKAL VÆRE EN KNAP -->
+          </div>
+
+          <!-------------------------------------------- OPLYSNINGER -------------------------------------------->
+
+          <!-------------------------------------------- BETALING -------------------------------------------->
+          <h2>Ordreoversigt</h2>
+          <div class="order_services"></div>
+          <div class="order_services_price"></div>
+          <div class="order_chargers"></div>
+          <div class="order_chargers_price"></div>
+          <div class="order_delivery"></div>
+          <div class="order_delivery_price"></div>
+
+          <h2>Vælg betalingsmetode</h2>
+          <label>
+            Kortbetaling
+            <input type="radio" name="payment" id="payment_kort" checked />
+          </label>
+          <label>
+            Mobilepay
+            <input type="radio" name="payment" id="payment_mobilepay" />
+          </label>
+          <label>
+            Paypal
+            <input type="radio" name="payment" id="payment_paypal" />
+          </label>
+          <br />
+          <br />
+          <input class="add_button" type="submit" value="Gå til betaling" />
+
+          <!-------------------------------------------- BETALING SLUT-------------------------------------------->
+        </div>
+      </div>
+    </form>
+    <script src="form.js"></script>
+  </body>
+</html>

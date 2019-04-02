@@ -1,0 +1,571 @@
+$color-white: #ffffff;
+$color-almost_black: #333333;
+$color-almost_black_60: rgba(51, 51, 51, 0.6);
+$color-lightgrey_background: #f1f1f1;
+$color-lightgrey_text: rgba(51, 51, 51, 0.6);
+$color-lightning_green: #abcc45;
+
+.main_grid {
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: 13vw auto;
+
+  .menu {
+    background-image: url(static/billede_menu.png);
+    background-size: 100%;
+    width: 100vw;
+    height: 13vw;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .form_grid {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    display: grid;
+    grid-template-columns: repeat(5, 100vw);
+    grid-template-rows: 50px auto auto;
+    // transform: translateX(-100vw);
+    justify-items: center;
+    // grid-row-gap: 6vw;
+  }
+}
+
+// ------------------------------ GENERELT -------------------------//
+%betalingsflow_billede {
+  background-color: $color-white;
+  width: 100vw;
+  height: 13vw;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  display: grid;
+  grid-template-rows: 50px;
+  grid-template-columns: repeat(3, 33.3%);
+}
+
+%container {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 6vw;
+}
+
+%section {
+  background: $color-white;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  width: 94vw;
+  display: grid;
+}
+%section_billede {
+  background-size: 100%;
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+  justify-self: center;
+  align-self: center;
+  background-repeat: no-repeat;
+}
+
+%grey_box {
+  width: 100%;
+  background: $color-lightgrey_background;
+  grid-row: 1 / span 1;
+}
+h1 {
+  font-weight: normal;
+  color: $color-almost_black;
+  font-size: 7vw;
+  grid-row: 1 / span 1;
+  grid-column: 2;
+  font-size: 24px;
+}
+h2 {
+  color: $color-lightgrey_text;
+  font-weight: normal;
+}
+%margin_left {
+  margin-left: 20px;
+}
+%margin_right {
+  margin-right: 20px;
+}
+%hr {
+  width: 90%;
+  height: 2px;
+  background: $color-lightgrey_background;
+  @extend %margin_left;
+}
+
+%advarsel {
+  visibility: hidden;
+  height: 0;
+  color: red;
+  grid-column: 1 / span 3;
+  @extend %margin_left;
+}
+
+// -------------------------------------- FLOW 1 --------------------------------//
+
+.betalingsflow_billede1 {
+  @extend %betalingsflow_billede;
+  grid-column-start: 1;
+  grid-column-end: 2;
+
+  .linje {
+    width: 175px;
+    height: 2px;
+    background-color: $color-almost_black;
+    grid-row: 1;
+    grid-column: 1 / span 3;
+    align-self: center;
+    justify-self: center;
+  }
+  %flowikon {
+    grid-row: 1;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    align-self: center;
+  }
+  .flowikon_kurv {
+    @extend %flowikon;
+    grid-column: 1 / span 1;
+    background-image: url(static/indkoebskurvikon.svg);
+    width: 35px;
+    height: 24.2px;
+    justify-self: end;
+  }
+  .flowikon_oplysninger {
+    @extend %flowikon;
+    grid-column: 2 / span 1;
+    background-image: url(static/profilIkonHvid.svg);
+    width: 23px;
+    height: 21.86px;
+    justify-self: center;
+  }
+  .flowikon_betaling {
+    @extend %flowikon;
+    grid-column: 3 / span 1;
+    background-image: url(static/kreditkortLilleHvidIkon.svg);
+    width: 26px;
+    height: 19.5px;
+  }
+}
+
+.container_flow1 {
+  @extend %container;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-template-rows: repeat(3, auto);
+  // padding-top: 6vw;
+
+  .kurv {
+    @extend %section;
+    box-sizing: border-box;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-template-columns: 65px auto 85px;
+    grid-template-rows: 60px auto 10px auto auto auto auto auto auto auto;
+  }
+
+  // -------------------------------------- KURV --------------------------------//
+  .kurv .grey_box {
+    @extend %grey_box;
+    grid-column: 1 / span 3;
+  }
+
+  .ikon_vogn {
+    @extend %section_billede;
+    background-image: url(static/indkoebskurvIkon.svg);
+    width: 35px;
+    height: 24.2px;
+  }
+
+  .kurv h2 {
+    grid-row: 2 / span 1;
+    margin-bottom: 0;
+    grid-column: 1 / span 3;
+    @extend %margin_left;
+    font-size: 18px;
+    // font-weight: 100;
+  }
+  .kurv .hr {
+    @extend %hr;
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 3;
+  }
+  #number_persons {
+    background: $color-white;
+    border: 1px solid #f1f1f1;
+    box-sizing: border-box;
+    box-shadow: inset 2px 2px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    width: 38px;
+    height: 30px;
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 3;
+    @extend %margin_left;
+    font-size: 18px;
+    align-self: center;
+    margin-top: 5px;
+  }
+  .label_persons {
+    grid-row: 4 / span 1;
+    grid-column: 2 / span 2;
+    font-size: 18px;
+    align-self: center;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+  .ekstratekst_knap {
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 1;
+    width: 32px;
+    height: 32px;
+    background: #e5e5e5;
+    border: 0.5px solid #c4c4c4;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    justify-self: end;
+    @extend %margin_right;
+    p {
+      margin: 0;
+      text-align: center;
+      margin-top: 3px;
+      font-size: 24px;
+    }
+  }
+
+  .advarsel1 {
+    @extend %advarsel;
+    grid-row: 5 / span 1;
+    @extend %margin_left;
+  }
+  .bytteservice_billede {
+    background-image: url(static/volt_lightning2.png);
+    background-size: 100%;
+    width: 31px;
+    height: 26px;
+    grid-row: 6 / span 1;
+    grid-column: 1 / span 1;
+    @extend %margin_left;
+    align-self: center;
+  }
+  .total_services {
+    grid-column: 2 / span 1;
+    grid-row: 6 / span 1;
+    font-size: 14px;
+    color: $color-lightgrey_text;
+    margin: 20px 0;
+  }
+
+  .price_services {
+    grid-column: 3 / span 1;
+    grid-row: 6 / span 1;
+    font-size: 14px;
+    color: red;
+    color: $color-lightning_green;
+    justify-self: end;
+    align-self: center;
+    @extend %margin_right;
+  }
+
+  .oplader_billede {
+    background-image: url(static/charger.jpg);
+    background-size: 100%;
+    width: 39px;
+    height: 39px;
+    grid-row: 7 / span 1;
+    grid-column: 1 / span 1;
+    @extend %margin_left;
+    align-self: center;
+  }
+
+  .total_chargers {
+    grid-column: 2 / span 1;
+    grid-row: 7 / span 1;
+    font-size: 14px;
+    color: $color-lightgrey_text;
+  }
+
+  .price_chargers {
+    grid-column: 3 / span 1;
+    grid-row: 7 / span 1;
+    font-size: 14px;
+    justify-self: end;
+    @extend %margin_right;
+  }
+
+  .single_person {
+    grid-column: 1 / span 3;
+    grid-row: 8 / span 2;
+    display: contents;
+
+    .tekst1 {
+      grid-column: 1 / span 3;
+      grid-row: 8 / span 1;
+      @extend %margin_left;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    #own_charger {
+      grid-column: 1 / span 1;
+      grid-row: 9 / span 1;
+      width: 38px;
+      height: 30px;
+      @extend %margin_left;
+      margin-bottom: 20px;
+    }
+    .label_own_charger {
+      grid-column: 2 / span 2;
+      grid-row: 9 / span 1;
+      align-self: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  .multiple_persons {
+    visibility: hidden;
+    height: 0;
+
+    .tekst2 {
+      grid-column: 1 / span 3;
+      grid-row: 8 / span 1;
+      @extend %margin_left;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    #set_chargers {
+      grid-column: 1 / span 1;
+      grid-row: 9 / span 1;
+      border: 1px solid #f1f1f1;
+      box-shadow: inset 2px 2px 1px rgba(0, 0, 0, 0.25);
+      border-radius: 2px;
+      width: 33px;
+      height: 30px;
+      @extend %margin_left;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    .label_set_chargers {
+      grid-column: 2 / span 2;
+      grid-row: 9 / span 1;
+      align-self: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  .advarsel2 {
+    @extend %advarsel;
+    grid-row: 10 / span 1;
+    @extend %margin_left;
+    p {
+      margin-top: 0;
+    }
+  }
+
+  // -------------------------------------- KURV SLUT --------------------------------//
+  .levering {
+    @extend %section;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-template-columns: 65px auto;
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 10px;
+  }
+  // -------------------------------------- LEVERING --------------------------------//
+
+  .levering .grey_box {
+    @extend %grey_box;
+    grid-column: 1 / span 2;
+  }
+
+  .ikon_levering {
+    @extend %section_billede;
+    background-image: url(static/leveringsbilIkon.svg);
+    width: 39.5px;
+    height: 21px;
+  }
+
+  #delivery_afhentning,
+  #delivery_posthus {
+    width: 0;
+    height: 0;
+  }
+
+  %delivery_button {
+    background: #ffffff;
+    border: 1px solid #c4c4c4;
+    border-radius: 6px;
+    grid-column: 1 / span 2;
+    width: 95%;
+    justify-self: center;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      @extend %margin_left;
+    }
+    p {
+      display: inline;
+      @extend %margin_right;
+      font-weight: 700;
+    }
+  }
+
+  .delivery_button1 {
+    @extend %delivery_button;
+    grid-row: 2 / span 1;
+  }
+  .delivery_button2 {
+    @extend %delivery_button;
+    grid-row: 3 / span 1;
+  }
+
+  .chosen_delivery {
+    border: 2px solid #abcc45;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  // ------------------------------------ LEVERING SLUT ----------------------------//
+  .ordreoversigt {
+    @extend %section;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-template-rows: auto auto auto auto auto 10px auto;
+    grid-template-columns: 65px auto 95px;
+    grid-row-gap: 18px;
+  }
+  // ------------------------------------ ORDREOVERSIGT ----------------------------//
+  .ordreoversigt .grey_box {
+    @extend %grey_box;
+    background: $color-almost_black;
+    border-radius: 6px 6px 0 0;
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 3;
+  }
+  .ordreoversigt h1 {
+    color: $color-white;
+  }
+  .ikon_oversigt {
+    @extend %section_billede;
+    background-image: url(static/ordreOversigtIkon.svg);
+    width: 20.16px;
+    height: 25.53px;
+  }
+  %child_right {
+    justify-self: end;
+    @extend %margin_right;
+    font-size: 15px;
+    grid-column: 3 / span 1;
+    // font-weight: 600;
+  }
+  .order_services {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 3;
+    font-size: 15px;
+    @extend %margin_left;
+  }
+  .order_services_price {
+    @extend %child_right;
+    grid-row: 2 / span 1;
+    color: $color-lightgrey_text;
+    text-decoration: line-through;
+  }
+  .ordreoversigt p:first-of-type {
+    color: $color-lightning_green;
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 2;
+    @extend %margin_left;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .ordreoversigt p:last-of-type {
+    margin-top: 0;
+    margin-bottom: 0;
+    @extend %child_right;
+    grid-row: 3 / span 1;
+    color: $color-lightning_green;
+  }
+  .order_chargers {
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 3;
+    font-size: 15px;
+    @extend %margin_left;
+  }
+  .order_chargers_price {
+    @extend %child_right;
+    grid-row: 4 / span 1;
+  }
+  .order_delivery {
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 3;
+    font-size: 15px;
+    @extend %margin_left;
+  }
+  .order_delivery_price {
+    grid-row: 5 / span 1;
+    @extend %child_right;
+  }
+
+  .ordreoversigt .hr {
+    @extend %hr;
+    grid-row: 6 / span 1;
+    grid-column: 1 / span 3;
+  }
+  .ialt {
+    grid-row: 7 / span 1;
+    grid-column: 1 / span 2;
+    justify-self: end;
+    margin-bottom: 20px;
+    // font-weight: 600;
+  }
+  .ialt_pris {
+    @extend %child_right;
+    margin-bottom: 20px;
+    grid-row: 7 / span 1;
+    font-weight: 600;
+  }
+}
+// ------------------------------------ ORDREOVERSIGT SLUT ----------------------------//
+.fortsaet {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: $color-lightning_green;
+  border-radius: 6px;
+  color: $color-white;
+  width: 94vw;
+  height: 46px;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  margin-top: 6vw;
+  font-size: 18px;
+}
+
+// -------------------------------------- FLOW 2 --------------------------------//
+.betalingsflow_billede2 {
+  @extend %betalingsflow_billede;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.container_flow2 {
+  @extend %container;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-template-rows: repeat(2, auto);
+  // padding-top: 6vw;
+}
+
+.oplysninger {
+  @extend %section;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.delivery {
+  visibility: hidden;
+  height: 0;
+}
