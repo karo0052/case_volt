@@ -31,19 +31,134 @@ function init() {
     .querySelector("#delivery_afhentning")
     .addEventListener("change", updateDeliveryAfhentning);
 
+  document.querySelector(".fortsaet").addEventListener("click", flow2);
+
+  document.querySelector(".fortsaet2").addEventListener("click", flow3);
+
+  document
+    .querySelector("#payment_kort")
+    .addEventListener("change", updatePayment);
+  document
+    .querySelector("#payment_mobilepay")
+    .addEventListener("change", updatePayment);
+  document
+    .querySelector("#payment_paypal")
+    .addEventListener("change", updatePayment);
+
   document.querySelector("form").addEventListener("submit", submit);
 
   setServices();
 }
 
+function updatePayment(e) {
+  console.log("updatePayment");
+
+  if (e.target.id === "payment_kort" && e.target.checked === true) {
+    console.log("kort er valgt");
+    document
+      .querySelector(".billede_kort")
+      .classList.add("chosen_paymentmethod");
+    document
+      .querySelector(".billede_mobilepay")
+      .classList.remove("chosen_paymentmethod");
+    document
+      .querySelector(".billede_paypal")
+      .classList.remove("chosen_paymentmethod");
+  }
+  if (e.target.id === "payment_mobilepay" && e.target.checked === true) {
+    console.log("mobilepay er valgt");
+    document
+      .querySelector(".billede_kort")
+      .classList.remove("chosen_paymentmethod");
+    document
+      .querySelector(".billede_mobilepay")
+      .classList.add("chosen_paymentmethod");
+    document
+      .querySelector(".billede_paypal")
+      .classList.remove("chosen_paymentmethod");
+  }
+  if (e.target.id === "payment_paypal" && e.target.checked === true) {
+    console.log("paypal er valgt");
+    document
+      .querySelector(".billede_kort")
+      .classList.remove("chosen_paymentmethod");
+    document
+      .querySelector(".billede_mobilepay")
+      .classList.remove("chosen_paymentmethod");
+    document
+      .querySelector(".billede_paypal")
+      .classList.add("chosen_paymentmethod");
+  }
+}
+
+function flow2() {
+  console.log("flow2");
+  const isValidInput = number_persons.checkValidity();
+  if (isValidInput === true) {
+    console.log("it's true");
+    document.querySelector(".form_grid1").style.position = "absolute";
+    document.querySelector(".form_grid1").style.transform = "translate(-100vw)";
+    document.querySelector(".form_grid2").style.position = "relative";
+    document.querySelector(".form_grid2").style.transform = "translate(0)";
+  } else {
+    console.log("it's not valid");
+  }
+}
+
+function flow3() {
+  console.log("flow3");
+  const isValidFirstname = firstname.checkValidity();
+  const isValidLastname = lastname.checkValidity();
+  const isValidAddress = address.checkValidity();
+  const isValidZip = zip.checkValidity();
+  const isValidCity = city.checkValidity();
+  const isValidEmail = email.checkValidity();
+
+  if (
+    isValidFirstname === true &&
+    isValidLastname === true &&
+    isValidAddress === true &&
+    isValidZip === true &&
+    isValidCity === true &&
+    isValidEmail === true
+  ) {
+    console.log("det hele stemmer");
+    document.querySelector(".form_grid2").style.position = "absolute";
+    document.querySelector(".form_grid2").style.transform = "translate(-100vw)";
+    document.querySelector(".form_grid3").style.position = "relative";
+    document.querySelector(".form_grid3").style.transform = "translate(0)";
+  }
+}
+
 function updatePersons(e) {
   console.log("updatePersons");
-
+  console.log(e.target.value);
   input_persons = parseInt(e.target.value);
   document.querySelector("#own_charger").checked = false;
-  // forhindrer at der står NaN, når inputfeltet er tomt, ved at indsætte 0
-  if (e.target.value == "" || e.target.value < 0) {
-    input_persons = 0;
+  // forhindrer at der står NaN, når inputfeltet er tomt, ved at indsætte 1
+  if (e.target.value == "") {
+    console.log("dette");
+    input_persons = 1;
+  }
+  if (input_persons === 0 || e.target.value < 0) {
+    input_persons = 1;
+    console.log("not enough");
+    document.querySelector(".advarsel2").style.visibility = "visible";
+    document.querySelector(".advarsel2").style.height = "auto";
+    document.querySelector("#number_persons").style.outline = "1px solid red";
+    document.querySelector("#number_persons").style.color =
+      "rgba(51, 51, 51, 0.6)";
+    document.querySelector("#number_persons").disabled = true;
+
+    setTimeout(function() {
+      console.log("tiden er gået");
+      document.querySelector("#number_persons").disabled = false;
+      document.querySelector("#number_persons").style.color = "#333333";
+      document.querySelector("#number_persons").value = input_persons;
+      document.querySelector("#number_persons").style.outline = "none";
+      document.querySelector(".advarsel2").style.visibility = "hidden";
+      document.querySelector(".advarsel2").style.height = "0";
+    }, 4000);
   }
   if (e.target.value > 20) {
     input_persons = 20;
@@ -128,6 +243,7 @@ function updateDeliveryPosthus(e) {
       .classList.remove("chosen_delivery");
     document.querySelector(".delivery").style.visibility = "visible";
     document.querySelector(".delivery").style.height = "auto";
+    document.querySelector(".delivery").style.display = "contents";
     document.querySelectorAll(".autofill").forEach(felt => {
       felt.value = null;
     });
@@ -149,35 +265,13 @@ function updateDeliveryAfhentning(e) {
     chosen_delivery = "afhentning";
     document.querySelector(".delivery").style.visibility = "hidden";
     document.querySelector(".delivery").style.height = "0";
+    document.querySelector(".delivery").style.display = "block";
     document.querySelectorAll(".autofill").forEach(felt => {
       felt.value = "null";
     });
     document.querySelector(".autofill_number").value = 1234;
   }
   setServices();
-}
-
-function submit(e) {
-  console.log("submit");
-
-  e.preventDefault();
-  const payload = {
-    persons: form.elements.persons.value,
-    charger_single: form.elements.charger_single.checked,
-    charger_number: form.elements.charger_number.value,
-    delivery_afhentning: form.elements.delivery_afhentning.checked,
-    delivery_posthus: form.elements.delivery_posthus.checked,
-    firstname: form.elements.firstname.value,
-    lastname: form.elements.lastname.value,
-    address: form.elements.address.value,
-    zip: form.elements.zip.value,
-    city: form.elements.city.value,
-    email: form.elements.email.value,
-    payment_kort: form.elements.payment_kort.checked,
-    payment_mobilepay: form.elements.payment_mobilepay.checked,
-    payment_paypal: form.elements.payment_paypal.checked
-  };
-  post(payload);
 }
 
 function setServices() {
@@ -269,6 +363,37 @@ function showOrder() {
   });
 }
 
+function submit(e) {
+  console.log("submit");
+
+  document.querySelector(".form_grid3").style.position = "absolute";
+  document.querySelector(".form_grid3").style.transform = "translate(-100vw)";
+  document.querySelector(".ekstern_betaling").style.position = "relative";
+  document.querySelector(".ekstern_betaling").style.transform = "translate(0)";
+
+  e.preventDefault();
+  const payload = {
+    persons: form.elements.persons.value,
+    charger_single: form.elements.charger_single.checked,
+    charger_number: form.elements.charger_number.value,
+    delivery_afhentning: form.elements.delivery_afhentning.checked,
+    delivery_posthus: form.elements.delivery_posthus.checked,
+    firstname: form.elements.firstname.value,
+    lastname: form.elements.lastname.value,
+    address: form.elements.address.value,
+    zip: form.elements.zip.value,
+    city: form.elements.city.value,
+    email: form.elements.email.value,
+    payment_kort: form.elements.payment_kort.checked,
+    payment_mobilepay: form.elements.payment_mobilepay.checked,
+    payment_paypal: form.elements.payment_paypal.checked,
+    newsletter: form.elements.newsletter.checked,
+    terms: form.elements.terms.checked
+  };
+  post(payload);
+  setTimeout(bookingDone, 2000);
+}
+
 function post(newCustomer) {
   console.log("post");
 
@@ -286,4 +411,12 @@ function post(newCustomer) {
     .then(data => {
       form.reset();
     });
+}
+function bookingDone() {
+  console.log("bookingDone");
+  document.querySelector(".ekstern_betaling").style.position = "absolute";
+  document.querySelector(".ekstern_betaling").style.transform =
+    "translate(-100vw)";
+  document.querySelector(".form_grid4").style.position = "relative";
+  document.querySelector(".form_grid4").style.transform = "translate(0)";
 }
